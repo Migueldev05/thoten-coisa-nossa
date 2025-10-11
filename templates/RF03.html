@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Meu Carrinho</title>
+    <!-- Carrega o arquivo JavaScript que contém toda a lógica da página -->
+    <script src="{{ url_for('static', filename='scripts/carrinho.js') }}" defer></script>
+    <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+    <h1>Seu Carrinho de Compras</h1>
+    <hr>
+
+    <!-- Verifica se o carrinho (enviado pelo app.py) tem algum item -->
+    {% if carrinho %}
+        <table border="1" style="width:100%; text-align: left;">
+            <thead>
+                <tr>
+                    <th>Imagem</th>
+                    <th>Produto</th>
+                    <th>Preço</th>
+                    <th>Quantidade</th>
+                    <th>Subtotal</th>
+                    <th>Ação</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Loop que cria uma linha na tabela para cada item no carrinho -->
+                {% for item in carrinho.values() %}
+                <tr>
+                    <td><img src="{{ url_for('static', filename='images/' + item.imagem) }}" alt="{{ item.nome }}" width="50"></td>
+                    <td>{{ item.nome }}</td>
+                    <td>R$ {{ "%.2f"|format(item.preco) }}</td>
+                    <td>{{ item.quantidade }}</td>
+                    <td>R$ {{ "%.2f"|format(item.preco * item.quantidade) }}</td>
+                    <td>
+                        <!-- Botão para remover um item. O JS vai identificar a classe '.btn-remover' -->
+                        <button class="btn-remover" data-nome="{{ item.nome }}">Remover</button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <h3>Total do Pedido: R$ {{ "%.2f"|format(total) }}</h3>
+        <br>
+        <!-- Botão para limpar o carrinho. O JS vai identificar o id '#btn-limpar' -->
+        <button id="btn-limpar">Limpar Carrinho</button>
+
+    {% else %}
+        <!-- Mensagem exibida se o carrinho estiver vazio -->
+        <p>Seu carrinho está vazio.</p>
+    {% endif %}
+
+    <br>
+    <br>
+    <a href="/">Continuar comprando</a>
+
+</body>
+</html>

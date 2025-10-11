@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ categoria }}</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Carrega o arquivo JavaScript que contém a lógica de adicionar ao carrinho -->
+    <!-- O atributo 'defer' garante que o script só será executado depois que o HTML for carregado -->
+    <script src="{{ url_for('static', filename='scripts/carrinho.js') }}" defer></script>
+</head>
+<body>
+    <h1>{{ categoria }}</h1>
+
+    <!-- Link para o usuário poder visualizar o carrinho de compras -->
+    <a href="/carrinho">Ver Carrinho</a>
+    <hr>
+    
+    <div>
+        <!-- Loop do Jinja2/Flask que exibe cada produto da categoria enviada pelo app.py -->
+        {% for produto in produtos %}
+            <div>
+                <!-- Exibe a imagem, nome, descrição e preço do produto -->
+                <img src="{{ url_for('static', filename='images/' + produto.imagem) }}" alt="{{ produto.nome }}" width="100">
+                <h2>{{ produto.nome }}</h2>
+                <p>{{ produto.descricao }}</p>
+                <p><strong>R$ {{ "%.2f"|format(produto.preco) }}</strong></p>
+                
+                <!-- 
+                    BOTÃO DE ADICIONAR - Esta é a parte essencial.
+                    - class="btn-adicionar": Permite que o carrinho.js encontre este botão.
+                    - data-*: Armazena os dados do produto diretamente no botão para o JS ler.
+                -->
+                <button class="btn-adicionar" 
+                        data-nome="{{ produto.nome }}" 
+                        data-preco="{{ produto.preco }}" 
+                        data-imagem="{{ produto.imagem }}">
+                    Adicionar ao carrinho
+                </button>
+
+            </div>
+            <!-- Linha para separar visualmente os produtos -->
+            <hr>
+        {% endfor %}
+    </div>
+    <br>
+    <!-- Link para voltar à página inicial de categorias -->
+    <a href="/">Voltar para as categorias</a>
+</body>
+</html>
+
+
