@@ -7,29 +7,24 @@ app.secret_key = 'ADS'
 # Dicionário de produtos com a lista completa e formatação correta.
 produtos = {
     "lanches": [
-        {"nome": "X-Burguer", "descricao": "Pão, hambúrguer e queijo.", "preco": 12.00, "imagem": "x-burguer.jpg"},
-        {"nome": "X-Bacon", "descricao": "Pão, hambúrguer, queijo e bacon.", "preco": 15.00, "imagem": "x-bacon.jpg"},
-        {"nome": "X-Salada", "descricao": "Pão, hambúrguer, queijo, alface e tomate.", "preco": 14.50, "imagem": "x-salada.jpg"},
-        {"nome": "Tudo (lanche completo)", "descricao": "O monstro de todos os lanches.", "preco": 21.00, "imagem": "placeholder.png"}
+        {"nome": "X-Burguer", "descricao": "Pão, hambúrguer e queijo.", "preco": 12.00, "imagem": "X-Burguer.png"},
+        {"nome": "X-Salada", "descricao": "Pão, hambúrguer, queijo, alface e tomate.", "preco": 12.00, "imagem": "X-Salada.png"},
+        {"nome": "X-Tudo (lanche completo)", "descricao": "O monstro de todos os lanches.", "preco": 21.00, "imagem": "X-Tudo.png"}
     ],
     "salgados": [
-        {"nome": "Americano", "descricao": "Salgado assado com presunto, queijo e tomate.", "preco": 13.00, "imagem": "placeholder.png"},
-        {"nome": "Baguete", "descricao": "Baguete recheada.", "preco": 12.00, "imagem": "placeholder.png"},
-        {"nome": "Bauru", "descricao": "Pão francês, rosbife, queijo e tomate.", "preco": 12.00, "imagem": "placeholder.png"},
-        {"nome": "Pão c/ Ovo", "descricao": "Pão na chapa com ovo.", "preco": 6.90, "imagem": "placeholder.png"},
-        {"nome": "Pão c/ Manteiga", "descricao": "Pão na chapa com manteiga.", "preco": 4.25, "imagem": "placeholder.png"}
+        {"nome": "Risole", "descricao": "Salgado assado com presunto e queijo", "preco": 6.90, "imagem": "risole.png"},
+        {"nome": "Coxinha", "descricao": "Salgado frito reheado", "preco": 6.90, "imagem": "Coxinha.png"},
+        {"nome": "Bauru", "descricao": "Pão francês, rosbife, queijo e tomate.", "preco": 12.00, "imagem": "Bauru.png"},
     ],
     "bebidas": [
-        {"nome": "Café Espresso", "descricao": "Café forte e encorpado.", "preco": 6.90, "imagem": "placeholder.png"},
-        {"nome": "Refrigerante Lata 350ml", "descricao": "Coca-Cola, Guaraná, etc.", "preco": 6.90, "imagem": "placeholder.png"},
-        {"nome": "Suco Natural 300ml", "descricao": "Laranja, abacaxi, morango.", "preco": 9.00, "imagem": "placeholder.png"},
-        {"nome": "Água 510ml", "descricao": "Com ou sem gás.", "preco": 2.70, "imagem": "placeholder.png"}
+        {"nome": "Café Espresso", "descricao": "Café forte e encorpado.", "preco": 6.90, "imagem": " Café.png"},
+        {"nome": "Refrigerante Lata 350ml", "descricao": "Coca-Cola, Guaraná, etc.", "preco": 6.90, "imagem": "Refri.png"},
+        {"nome": "Água 510ml", "descricao": "Com ou sem gás.", "preco": 2.70, "imagem": "Agua.png"}
     ],
     "bomboniere": [
-        {"nome": "Kit Kat", "descricao": "Chocolate ao leite com wafer.", "preco": 6.90, "imagem": "placeholder.png"},
-        {"nome": "Snickers", "descricao": "Chocolate, caramelo e amendoim.", "preco": 5.50, "imagem": "placeholder.png"},
-        {"nome": "Sonho de Valsa", "descricao": "Bombom de chocolate com castanha.", "preco": 2.20, "imagem": "placeholder.png"},
-        {"nome": "Trident", "descricao": "Goma de mascar sem açúcar.", "preco": 2.20, "imagem": "placeholder.png"}
+        {"nome": "Kit Kat", "descricao": "Chocolate ao leite com wafer.", "preco": 6.90, "imagem": "Kitkat.png"},
+        {"nome": "Snickers", "descricao": "Chocolate, caramelo e amendoim.", "preco": 5.50, "imagem": "Snickers.png"},
+        {"nome": "Sonho de Valsa", "descricao": "Bombom de chocolate com castanha.", "preco": 2.20, "imagem": "SonhoValsa.png"},
     ]
 }
 
@@ -37,14 +32,14 @@ produtos = {
 def index():
     """ Rota da página inicial que exibe as categorias. """
     # CORREÇÃO: Alterado para 'RF01-menu.html' para corresponder ao seu nome de arquivo.
-    return render_template('RF01-menu.html')
+    return render_template('RF01.html')
 
 @app.route('/categoria/<nome_categoria>')
 def mostrar_categoria(nome_categoria):
     """ Rota que exibe os produtos de uma categoria específica. """
     categoria = nome_categoria.lower()
     if categoria in produtos:
-        return render_template('RF02-catalogo.html', categoria=categoria.capitalize(), produtos=produtos[categoria])
+        return render_template('RF02.html', categoria=categoria.capitalize(), produtos=produtos[categoria])
     return f"Categoria '{categoria}' não encontrada.", 404
 
 @app.route('/adicionar_ao_carrinho', methods=['POST'])
@@ -67,7 +62,7 @@ def ver_carrinho():
     """ Rota que exibe a página do carrinho com todos os itens. """
     carrinho = session.get('carrinho', {})
     total = sum(item['preco'] * item['quantidade'] for item in carrinho.values())
-    return render_template('RF03-carrinho.html', carrinho=carrinho, total=total)
+    return render_template('RF03.html', carrinho=carrinho, total=total)
 
 @app.route('/limpar_carrinho', methods=['POST'])
 def limpar_carrinho():
