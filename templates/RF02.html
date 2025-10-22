@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>{{ categoria }}</title>
-    <link rel="stylesheet" href="style.css">
     <!-- Carrega o arquivo JavaScript que contém a lógica de adicionar ao carrinho -->
     <!-- O atributo 'defer' garante que o script só será executado depois que o HTML for carregado -->
     <script src="{{ url_for('static', filename='scripts/carrinho.js') }}" defer></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     <h1>{{ categoria }}</h1>

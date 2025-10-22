@@ -4,17 +4,18 @@
     <meta charset="UTF-8">
     <title>Totem Coisa Nostra</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     <h1 class="bemVindo">Bem-vindo à Cantina Coisa Nostra</h1>
-    <h2>Escolha uma categoria:</h2>
+    <h2 class="Escolha">Escolha uma categoria:</h2>
 
     <div>
         <ul>
-            <li><a href="/categoria/lanches" class="lanches">Lanches</a></li>
-            <li><a href="/categoria/salgados" class="salgados">Salgados</a></li>
-            <li><a href="/categoria/bebidas" class="bebidas">Bebidas</a></li>
-            <li><a href="/categoria/bomboniere" class="bomboniere">Bomboniere</a></li>
+            <h1><a href="/categoria/lanches" class="lanches">Lanches</a></h1>
+            <h1><a href="/categoria/salgados" class="salgados">Salgados</a></h1>
+            <h1><a href="/categoria/bebidas" class="bebidas">Bebidas</a></h1>
+            <h1><a href="/categoria/bomboniere" class="bomboniere">Bomboniere</a></h1>
         </ul>
     </div>
 </body>
